@@ -10,15 +10,21 @@ namespace Pokemon.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            HttpClient http = new HttpClient();
+            http.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
+            var data = http.GetAsync("pokemon").Result.Content.ReadAsStringAsync().Result;
+            return data;
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public string Get(string id)
         {
-            return "value";
+            HttpClient http = new HttpClient();
+            http.BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/");
+            var data = http.GetAsync(id).Result.Content.ReadAsStringAsync().Result;
+            return data;
         }
 
         // POST api/values
