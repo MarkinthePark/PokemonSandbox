@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Pokemon]
+(
+	[name] VARCHAR(50) NOT NULL PRIMARY KEY,
+	[url] VARCHAR(50) NOT NULL
+)

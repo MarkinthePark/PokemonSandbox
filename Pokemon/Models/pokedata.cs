@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Pokemon.Models
 {
-    public class Pokemon
+    public class Pokedata
     {
-        public List<Abilities> abilites { get; set; }
+        public List<Ability> abilities { get; set; }
         public int base_experience { get; set; }
         public List<NamedAPIResource> forms { get; set; }
         public List<Game_indices> game_Indices { get; set; }
@@ -24,7 +24,7 @@ namespace Pokemon.Models
         public List<Stats> stats { get; set; }
         public List<Types> types { get; set; }
         public int weight { get; set; }
-    }   
+    }
 
     // Start utility models
     public class NamedAPIResource
@@ -34,7 +34,7 @@ namespace Pokemon.Models
     }
 
     // Start Abilities model
-    public class Abilities
+    public class Ability
     {
         public NamedAPIResource ability { get; set; }
         public bool is_hidden { get; set; }
