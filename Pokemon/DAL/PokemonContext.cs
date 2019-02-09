@@ -1,4 +1,6 @@
-﻿using Pokemon.Models;
+﻿/*
+
+using Pokemon.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -22,3 +24,5 @@ namespace Pokemon.DAL
 }
 
 //https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application
+
+*/

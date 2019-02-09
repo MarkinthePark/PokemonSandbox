@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon", "Pokemon\Pokemon.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{558463C7-EBB1-41C5-A9BC-FD7E50EE6759}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PokeData", "PokeData\PokeData.sqlproj", "{4F678304-01FD-4ACD-8CB6-50614F058626}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +21,6 @@ Global
 		{558463C7-EBB1-41C5-A9BC-FD7E50EE6759}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{558463C7-EBB1-41C5-A9BC-FD7E50EE6759}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{558463C7-EBB1-41C5-A9BC-FD7E50EE6759}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F678304-01FD-4ACD-8CB6-50614F058626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F678304-01FD-4ACD-8CB6-50614F058626}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F678304-01FD-4ACD-8CB6-50614F058626}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{4F678304-01FD-4ACD-8CB6-50614F058626}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F678304-01FD-4ACD-8CB6-50614F058626}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F678304-01FD-4ACD-8CB6-50614F058626}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
