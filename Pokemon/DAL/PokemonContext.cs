@@ -1,6 +1,4 @@
-﻿/*
-
-using Pokemon.Models;
+﻿using Pokemon.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -13,8 +11,8 @@ namespace Pokemon.DAL
         {
         }
 
-        public DbSet<name> names { get; set; }
-        public DbSet<url> urls { get; set; }
+        public DbSet<Results> Results { get; set; }
+        public DbSet<Pokedata> Pokedata { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -24,5 +22,3 @@ namespace Pokemon.DAL
 }
 
 //https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application
-
-*/

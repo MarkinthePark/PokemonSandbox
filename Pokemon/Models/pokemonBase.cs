@@ -20,7 +20,7 @@ namespace Pokemon.Models
         {
             get
             {
-                //Is this best practice?
+                //Is this best practice? Should I add as Method?
                 if ( _ID == 0 )
                 {
                     char[] urlDelims = new char[] { '/' };
@@ -31,7 +31,7 @@ namespace Pokemon.Models
                     return _ID;
                 }
             }
-            set { _ID = value; }
+            set { _ID = value; }    // To-do: Add clause for value not in  dbo.<table>.ID
         }
         public string name { get; set; }
         public string url { get; set; }
