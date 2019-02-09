@@ -10,10 +10,10 @@ namespace Pokemon.Models
         public int count { get; set; }
         public string next { get; set; }
         public string previous { get; set; }
-        public List<Results> results { get; set; }
+        public List<Result> result { get; set; }
     }
 
-    public class Results
+    public class Result
     {
         int _ID;
         public int ID

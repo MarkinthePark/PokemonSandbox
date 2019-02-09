@@ -24,10 +24,10 @@ namespace Pokemon.Controllers
 
 
         // GET api/values
-        public async Task<List<Results>> Get()
+        public async Task<List<Result>> Get()
         {
             var data = await Client.GetStringAsync("?limit=964");
-            var results = JsonConvert.DeserializeObject<PokemonBase>(data).results;
+            var results = JsonConvert.DeserializeObject<PokemonBase>(data).result;
             return results;
         }
 
