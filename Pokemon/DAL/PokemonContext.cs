@@ -17,6 +17,7 @@ namespace Pokemon.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<Result>().HasKey(r => r.ID, config => config.IsClustered(false));
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Pokemon.Controllers
         }
 
         // GET: Result/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -47,7 +47,7 @@ namespace Pokemon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,id,url")] Result result)
+        public ActionResult Create([Bind(Include = "ID,name,url")] Result result)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace Pokemon.Controllers
         }
 
         // GET: Result/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -79,7 +79,7 @@ namespace Pokemon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,id,url")] Result result)
+        public ActionResult Edit([Bind(Include = "ID,name,url")] Result result)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Pokemon.Controllers
         }
 
         // GET: Result/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -108,7 +108,7 @@ namespace Pokemon.Controllers
         // POST: Result/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Result result = db.Results.Find(id);
             db.Results.Remove(result);

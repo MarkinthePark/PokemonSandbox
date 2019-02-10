@@ -18,24 +18,23 @@ namespace Pokemon.DAL
             BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/")
         };
 
-        public async Task<List<Result>> getPokemon()
+        private static List<Result> getPokemon()
         {
-            var data = await Client.GetStringAsync("?limit=964");
+            var data = Client.GetStringAsync("?limit=964").Result;
             var results = JsonConvert.DeserializeObject<PokemonBase>(data).results;
 
             char[] urlDelims = new char[] { '/' };
             for (int i = 0; i < results.Count; i++)
             {
                 var urlArray = results[i].url.Split(urlDelims, StringSplitOptions.RemoveEmptyEntries);
-                results[i].id = Convert.ToInt32(urlArray.Last());
+                results[i].ID = Convert.ToInt32(urlArray.Last());
             }
             return results;
         }
 
         protected override void Seed(PokemonContext context)
         {
-            var results = getPokemon().Result;
-
+            var results = getPokemon();
             results.ForEach(s => context.Results.Add(s));
             context.SaveChanges();
         }
