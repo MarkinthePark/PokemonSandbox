@@ -17,7 +17,7 @@ namespace Pokemon.Models
 
     public class Result
     {
-        [Key]
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
         public string name { get; set; }
         public string url { get; set; }

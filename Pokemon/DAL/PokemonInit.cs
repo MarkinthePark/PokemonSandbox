@@ -20,9 +20,9 @@ namespace Pokemon.DAL
 
         private static List<Result> getPokemon()
         {
-            var data = Client.GetStringAsync("?limit=964").Result;
+            var data = Client.GetStringAsync("?limit=964").Result; // Remove hardcoded limit
             var results = JsonConvert.DeserializeObject<PokemonBase>(data).results;
-
+            
             char[] urlDelims = new char[] { '/' };
             for (int i = 0; i < results.Count; i++)
             {
