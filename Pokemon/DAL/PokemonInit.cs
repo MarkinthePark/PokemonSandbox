@@ -18,6 +18,8 @@ namespace Pokemon.DAL
             BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/")
         };
 
+        private static List<int> urlList = new List<int> { };
+
         private static List<Result> getPokemon()
         {
             var data = Client.GetStringAsync("?limit=964").Result; // Remove hardcoded limit
@@ -28,8 +30,21 @@ namespace Pokemon.DAL
             {
                 var urlArray = results[i].url.Split(urlDelims, StringSplitOptions.RemoveEmptyEntries);
                 results[i].ID = Convert.ToInt32(urlArray.Last());
+                urlList.Add(results[i].ID);
             }
             return results;
+        }
+
+        private static List<Pokedata> getPokedata()
+        {
+            var pokeList = new List<Pokedata> { };
+            for (int i = 0; i < urlList.Count; i++)
+            {
+                var data = Client.GetStringAsync(urlList[i].ToString()).Result;
+                var results = JsonConvert.DeserializeObject<Pokedata>(data);
+                pokeList.Add(results);
+            }
+            return pokeList;
         }
 
         protected override void Seed(PokemonContext context)
@@ -37,6 +52,11 @@ namespace Pokemon.DAL
             var results = getPokemon();
             results.ForEach(s => context.Results.Add(s));
             context.SaveChanges();
+
+            var pokedata = getPokedata();
+            pokedata.ForEach(s => context.Pokedatas.Add(s));
+            context.SaveChanges();
+
         }
     }
 }

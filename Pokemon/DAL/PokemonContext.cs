@@ -12,7 +12,7 @@ namespace Pokemon.DAL
         }
 
         public DbSet<Result> Results { get; set; }
-        //public DbSet<Pokedata> Pokedatas { get; set; }
+        public DbSet<Pokedata> Pokedatas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

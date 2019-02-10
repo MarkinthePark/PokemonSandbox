@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace Pokemon.Models
 {
     public class Pokedata
@@ -13,6 +16,8 @@ namespace Pokemon.Models
         public List<Game_indices> game_Indices { get; set; }
         public int height { get; set; }
         public List<Held_items> held_Items { get; set; }
+
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
         public bool is_default { get; set; }
         public string location_area_encounters { get; set; }
@@ -25,7 +30,7 @@ namespace Pokemon.Models
         public List<Types> types { get; set; }
         public int weight { get; set; }
 
-        //public virtual ICollection<Result> Results { get; set; }
+        public virtual Result Result { get; set; }
     }
 
     // Start utility models
