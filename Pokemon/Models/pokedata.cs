@@ -25,7 +25,7 @@ namespace Pokemon.Models
         public List<Types> types { get; set; }
         public int weight { get; set; }
 
-        public virtual ICollection<Result> Results { get; set; }
+        //public virtual ICollection<Result> Results { get; set; }
     }
 
     // Start utility models

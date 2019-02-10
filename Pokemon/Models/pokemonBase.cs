@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Pokemon.Models
 {
@@ -10,12 +12,13 @@ namespace Pokemon.Models
         public int count { get; set; }
         public string next { get; set; }
         public string previous { get; set; }
-        public List<Result> result { get; set; }
+        public List<Result> results { get; set; }
     }
 
     public class Result
     {
         int _ID;
+        
         public int ID
         {
             get
@@ -33,10 +36,11 @@ namespace Pokemon.Models
             }
             set { _ID = value; }    // To-do: Add clause for value not in  dbo.<table>.ID
         }
+        [Key]
         public string name { get; set; }
         public string url { get; set; }
 
-        public virtual ICollection<Pokedata> Pokedatas { get; set; }
+        //public virtual ICollection<Pokedata> Pokedatas { get; set; }
     }
 
 }

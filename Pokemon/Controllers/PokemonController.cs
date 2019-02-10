@@ -27,17 +27,17 @@ namespace Pokemon.Controllers
         public async Task<List<Result>> Get()
         {
             var data = await Client.GetStringAsync("?limit=964");
-            var results = JsonConvert.DeserializeObject<PokemonBase>(data).result;
+            var results = JsonConvert.DeserializeObject<PokemonBase>(data).results;
             return results;
         }
-
+        
         /*
         public void InsertToDB(Array data)
         {
             string connectionString = GetConnectionString();
         }
         */
-
+       
         // GET api/values/5
         public async Task<Pokedata> Get(string id)
         {
