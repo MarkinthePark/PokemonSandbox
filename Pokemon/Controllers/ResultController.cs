@@ -47,7 +47,7 @@ namespace Pokemon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,ID,url")] Result result)
+        public ActionResult Create([Bind(Include = "name,id,url")] Result result)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace Pokemon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,ID,url")] Result result)
+        public ActionResult Edit([Bind(Include = "name,id,url")] Result result)
         {
             if (ModelState.IsValid)
             {

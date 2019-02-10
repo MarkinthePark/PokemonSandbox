@@ -17,6 +17,7 @@ namespace Pokemon.Models
 
     public class Result
     {
+        /*
         int _ID;
         
         public int ID
@@ -36,6 +37,9 @@ namespace Pokemon.Models
             }
             set { _ID = value; }    // To-do: Add clause for value not in  dbo.<table>.ID
         }
+        */
+        public int? id { get; set; }
+
         [Key]
         public string name { get; set; }
         public string url { get; set; }
