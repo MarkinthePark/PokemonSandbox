@@ -10,25 +10,25 @@ namespace Pokemon.Models
 {
     public class Pokedata
     {
-        //public List<Ability> abilities { get; set; }
+        public List<Ability> abilities { get; set; }
         public int base_experience { get; set; }
-        //public List<NamedAPIResource> forms { get; set; }
-        //public List<Game_indices> game_Indices { get; set; }
+        public List<NamedAPIResource> forms { get; set; }
+        public List<Game_indices> game_Indices { get; set; }
         public int height { get; set; }
-        //public List<Held_items> held_Items { get; set; }
+        public List<Held_items> held_Items { get; set; }
 
         [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
         public bool is_default { get; set; }
         public string location_area_encounters { get; set; }
-        //public List<Moves> moves { get; set; }
+        public List<Moves> moves { get; set; }
         public string name { get; set; }
         public int order { get; set; }
-        //public NamedAPIResource species { get; set; }
-        //public Sprites sprites { get; set; }
-        //public List<Stats> stats { get; set; }
-        //public List<Types> types { get; set; }
-        //public int weight { get; set; }
+        public NamedAPIResource species { get; set; }
+        public Sprites sprites { get; set; }
+        public List<Stats> stats { get; set; }
+        public List<Types> types { get; set; }
+        public int weight { get; set; }
 
         public virtual Result Result { get; set; }
     }

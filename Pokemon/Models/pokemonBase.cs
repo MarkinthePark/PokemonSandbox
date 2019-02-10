@@ -22,6 +22,7 @@ namespace Pokemon.Models
         public string name { get; set; }
         public string url { get; set; }
 
+        [Required]
         public virtual Pokedata Pokedata { get; set; }
     }
 
