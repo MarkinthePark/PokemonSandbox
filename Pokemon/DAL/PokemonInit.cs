@@ -18,29 +18,35 @@ namespace Pokemon.DAL
             BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/")
         };
 
-        private static List<int> urlList = new List<int> { };
-
-        private static List<Result> getPokemon()
+        public static Int32 MaxPokemon()
         {
-            var data = Client.GetStringAsync("?limit=964").Result; // Remove hardcoded limit
-            var results = JsonConvert.DeserializeObject<PokemonBase>(data).results;
+            var data = Client.GetStringAsync("").Result;
+            return JsonConvert.DeserializeObject<PokemonBase>(data).count;
+        }
+
+        private static List<Result> GetPokemon()
+        {
+            var allPokemon = Client.GetStringAsync(MaxPokemon().ToString()).Result;
+            var results = JsonConvert.DeserializeObject<PokemonBase>(allPokemon).results;
             
             char[] urlDelims = new char[] { '/' };
             for (int i = 0; i < results.Count; i++)
             {
                 var urlArray = results[i].url.Split(urlDelims, StringSplitOptions.RemoveEmptyEntries);
                 results[i].ID = Convert.ToInt32(urlArray.Last());
-                urlList.Add(results[i].ID);
+                urlList.Add(urlArray.Last());
             }
             return results;
         }
 
-        private static List<Pokedata> getPokedata()
+        private static List<String> urlList = new List<String> { };
+
+        private static List<Pokedata> GetPokedata()
         {
             var pokeList = new List<Pokedata> { };
             for (int i = 0; i < urlList.Count; i++)
             {
-                var data = Client.GetStringAsync(urlList[i].ToString()).Result;
+                var data = Client.GetStringAsync(urlList[i]).Result;
                 var results = JsonConvert.DeserializeObject<Pokedata>(data);
                 pokeList.Add(results);
             }
@@ -49,11 +55,11 @@ namespace Pokemon.DAL
 
         protected override void Seed(PokemonContext context)
         {
-            var results = getPokemon();
+            var results = GetPokemon();
             results.ForEach(s => context.Results.Add(s));
             context.SaveChanges();
 
-            var pokedata = getPokedata();
+            var pokedata = GetPokedata();
             pokedata.ForEach(s => context.Pokedatas.Add(s));
             context.SaveChanges();
 
