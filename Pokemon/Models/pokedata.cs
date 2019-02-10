@@ -8,6 +8,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Pokemon.Models
 {
+    // *****************************************************************************
+    // TO-DO: Abstract from Pokedata. Create virtual links to each additional class.
+    // *****************************************************************************
+
     public class Pokedata
     {
         public List<Ability> abilities { get; set; }
