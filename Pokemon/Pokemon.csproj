@@ -202,6 +202,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\moves.cs" />
     <Compile Include="Models\pokedata.cs" />
     <Compile Include="Models\pokemonBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

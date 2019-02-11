@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Pokedata.location_area_encounters)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
@@ -25,9 +22,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pokedata.location_area_encounters)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.name)
         </td>

@@ -25,7 +25,6 @@ namespace Pokemon.Models
         public int id { get; set; }
         public bool is_default { get; set; }
         public string location_area_encounters { get; set; }
-        public List<Moves> moves { get; set; }
         public string name { get; set; }
         public int order { get; set; }
         public NamedAPIResource species { get; set; }
@@ -35,6 +34,7 @@ namespace Pokemon.Models
         public int weight { get; set; }
 
         public virtual Result Result { get; set; }
+        public ICollection<Moves> moves { get; set; }
     }
 
     // Start utility models
@@ -82,6 +82,7 @@ namespace Pokemon.Models
         public NamedAPIResource version { get; set; }
     }
 
+    /*
     // Start Moves model
     public class Moves
     {
@@ -90,6 +91,7 @@ namespace Pokemon.Models
         public NamedAPIResource move { get; set; }
         public List<Version_group_details> version_group_details { get; set; }
     }
+    */
 
     public class Version_group_details
     {

@@ -39,10 +39,17 @@ namespace Pokemon.DAL
                 data = Client.GetStringAsync(urlArray.Last()).Result;
                 results[i].Pokedata = JsonConvert.DeserializeObject<Pokedata>(data);
 
+                results[i].Pokedata.moves.ToList().ForEach(s =>
+                {
+                    moveArray.Add(s);
+                });
+
                 //urlList.Add(urlArray.Last());
             }
             return results;
         }
+
+        private static List<Moves> moveArray = new List<Moves> { };
 
         /*
         private static List<String> urlList = new List<String> { };
@@ -66,8 +73,10 @@ namespace Pokemon.DAL
             results.ForEach(s => {
                 context.Results.Add(s);
                 context.Pokedatas.Add(s.Pokedata);
-                Console.WriteLine("test");
             });
+            context.SaveChanges();
+
+            moveArray.ForEach(s => context.Moves.Add(s));
             context.SaveChanges();
 
             /*
