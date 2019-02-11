@@ -12,6 +12,7 @@ namespace Pokemon.Models
     {
         [Key]
         public int? ID { get; set; }
+        public int PokedataID { get; set; }
         public Move move { get; set; }
         //public List<Version_group_details> version_group_details { get; set; }
 

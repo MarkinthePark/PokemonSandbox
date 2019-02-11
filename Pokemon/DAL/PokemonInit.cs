@@ -41,49 +41,27 @@ namespace Pokemon.DAL
 
                 results[i].Pokedata.moves.ToList().ForEach(s =>
                 {
-                    moveArray.Add(s);
+                    s.PokedataID = results[i].ID;
                 });
-
-                //urlList.Add(urlArray.Last());
             }
             return results;
         }
 
-        private static List<Moves> moveArray = new List<Moves> { };
-
-        /*
-        private static List<String> urlList = new List<String> { };
-
-        private static List<Pokedata> GetPokedata()
-        {
-            var pokeList = new List<Pokedata> { };
-            for (int i = 0; i < urlList.Count; i++)
-            {
-                var data = Client.GetStringAsync(urlList[i]).Result;
-                var results = JsonConvert.DeserializeObject<Pokedata>(data);
-                pokeList.Add(results);
-            }
-            return pokeList;
-        }
-        */
-
         protected override void Seed(PokemonContext context)
         {
+            var moves = new List<Moves> { };
+
             var results = GetPokemon();
             results.ForEach(s => {
+                s.Pokedata.moves.ToList().ForEach(m => moves.Add(m));
+                s.Pokedata.moves.Clear();
                 context.Results.Add(s);
                 context.Pokedatas.Add(s.Pokedata);
             });
             context.SaveChanges();
-
-            moveArray.ForEach(s => context.Moves.Add(s));
+            
+            moves.ForEach(s => context.Moves.Add(s));
             context.SaveChanges();
-
-            /*
-            var pokedata = GetPokedata();
-            pokedata.ForEach(s => context.Pokedatas.Add(s));
-            context.SaveChanges();
-            */
         }
     }
 }
