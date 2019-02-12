@@ -11,112 +11,107 @@ using Pokemon.Models;
 
 namespace Pokemon.Controllers
 {
-    public class ResultController : Controller
+    public class PokedataController : Controller
     {
         private PokemonContext db = new PokemonContext();
 
-        // GET: Result
+        // GET: Pokedata
         public ActionResult Index()
         {
-            var results = db.Results.Include(r => r.Pokedata);
-            return View(results.ToList());
+            return View(db.Pokedatas.ToList());
         }
 
-        // GET: Result/Details/5
+        // GET: Pokedata/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Result result = db.Results.Find(id);
-            if (result == null)
+            Pokedata pokedata = db.Pokedatas.Find(id);
+            if (pokedata == null)
             {
                 return HttpNotFound();
             }
-            return View(result);
+            return View(pokedata);
         }
 
-        // GET: Result/Create
+        // GET: Pokedata/Create
         public ActionResult Create()
         {
-            ViewBag.ID = new SelectList(db.Pokedatas, "id", "location_area_encounters");
             return View();
         }
 
-        // POST: Result/Create
+        // POST: Pokedata/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,url")] Result result)
+        public ActionResult Create([Bind(Include = "id,base_experience,height,is_default,location_area_encounters,name,order,weight")] Pokedata pokedata)
         {
             if (ModelState.IsValid)
             {
-                db.Results.Add(result);
+                db.Pokedatas.Add(pokedata);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ID = new SelectList(db.Pokedatas, "id", "location_area_encounters", result.ID);
-            return View(result);
+            return View(pokedata);
         }
 
-        // GET: Result/Edit/5
+        // GET: Pokedata/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Result result = db.Results.Find(id);
-            if (result == null)
+            Pokedata pokedata = db.Pokedatas.Find(id);
+            if (pokedata == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ID = new SelectList(db.Pokedatas, "id", "location_area_encounters", result.ID);
-            return View(result);
+            return View(pokedata);
         }
 
-        // POST: Result/Edit/5
+        // POST: Pokedata/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,name,url")] Result result)
+        public ActionResult Edit([Bind(Include = "id,base_experience,height,is_default,location_area_encounters,name,order,weight")] Pokedata pokedata)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(result).State = EntityState.Modified;
+                db.Entry(pokedata).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ID = new SelectList(db.Pokedatas, "id", "location_area_encounters", result.ID);
-            return View(result);
+            return View(pokedata);
         }
 
-        // GET: Result/Delete/5
+        // GET: Pokedata/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Result result = db.Results.Find(id);
-            if (result == null)
+            Pokedata pokedata = db.Pokedatas.Find(id);
+            if (pokedata == null)
             {
                 return HttpNotFound();
             }
-            return View(result);
+            return View(pokedata);
         }
 
-        // POST: Result/Delete/5
+        // POST: Pokedata/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Result result = db.Results.Find(id);
-            db.Results.Remove(result);
+            Pokedata pokedata = db.Pokedatas.Find(id);
+            db.Pokedatas.Remove(pokedata);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

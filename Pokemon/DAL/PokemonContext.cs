@@ -10,15 +10,13 @@ namespace Pokemon.DAL
         public PokemonContext() : base("PokemonContext")
         {
         }
-
-        public DbSet<Result> Results { get; set; }
+        
         public DbSet<Pokedata> Pokedatas { get; set; }
         public DbSet<Moves> Moves { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            //modelBuilder.Entity<Result>().HasKey(r => r.ID, config => config.IsClustered(false));
         }
     }
 }
