@@ -22,6 +22,7 @@ namespace Pokemon.Models
         public int Weight { get; set; }
 
         public virtual ICollection<Move> Moves { get; set; }
+        public virtual ICollection<Ability> Abilities { get; set; }
     }
 
     public class Move

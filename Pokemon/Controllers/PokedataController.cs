@@ -28,7 +28,7 @@ namespace Pokemon.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Moves pokedata = db.Moves.Find(id);
+            Move pokedata = db.Moves.Find(id);
             if (pokedata == null)
             {
                 return HttpNotFound();

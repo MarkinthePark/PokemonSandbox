@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Newtonsoft.Json;
-using Pokemon.Models;
+using Pokemon.Models.Business;
 
 
 namespace Pokemon.Controllers
@@ -27,7 +27,7 @@ namespace Pokemon.Controllers
         public async Task<List<Result>> Get()
         {
             var data = await Client.GetStringAsync("?limit=964");
-            var results = JsonConvert.DeserializeObject<PokemonBase>(data).results;
+            var results = JsonConvert.DeserializeObject<PokemonResult>(data).results;
             return results;
         }
         
@@ -39,10 +39,10 @@ namespace Pokemon.Controllers
         */
        
         // GET api/values/5
-        public async Task<Pokedata> Get(string id)
+        public async Task<API_Pokedata> Get(string id)
         {
             var data = await Client.GetStringAsync(id);
-            return JsonConvert.DeserializeObject<Pokedata>(data);
+            return JsonConvert.DeserializeObject<API_Pokedata>(data);
         }
 
         // POST api/values
