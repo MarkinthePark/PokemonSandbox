@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Pokemon.Models
+namespace Pokemon.Models.Business
 {
-    public class PokemonBase
+    // This model will become the list we use to aggregate pokemon catalog
+
+    public class PokemonResult
     {
         public int count { get; set; }
         public string next { get; set; }

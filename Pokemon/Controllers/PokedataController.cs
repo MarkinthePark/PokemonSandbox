@@ -28,11 +28,12 @@ namespace Pokemon.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pokedata pokedata = db.Pokedatas.Find(id);
+            Moves pokedata = db.Moves.Find(id);
             if (pokedata == null)
             {
                 return HttpNotFound();
             }
+            Console.WriteLine(pokedata);
             return View(pokedata);
         }
 

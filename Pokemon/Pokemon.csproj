@@ -199,12 +199,17 @@
     <Compile Include="Controllers\PokemonController.cs" />
     <Compile Include="DAL\PokemonInit.cs" />
     <Compile Include="DAL\PokemonContext.cs" />
+    <Compile Include="DAL\Services\AggPokemon.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\moves.cs" />
+    <Compile Include="Models\forms.cs" />
+    <Compile Include="Models\game_indices.cs" />
+    <Compile Include="Models\held_items.cs" />
+    <Compile Include="Models\Business\pokeBusiness.cs" />
+    <Compile Include="Models\Business\pokemonResult.cs" />
     <Compile Include="Models\pokedata.cs" />
-    <Compile Include="Models\pokemonBase.cs" />
+    <Compile Include="Models\version.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
