@@ -28,12 +28,11 @@ namespace Pokemon.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Move pokedata = db.Moves.Find(id);
+            Pokedata pokedata = db.Pokedatas.Find(id);
             if (pokedata == null)
             {
                 return HttpNotFound();
             }
-            Console.WriteLine(pokedata);
             return View(pokedata);
         }
 
@@ -48,7 +47,7 @@ namespace Pokemon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,base_experience,height,is_default,location_area_encounters,name,order,weight")] Pokedata pokedata)
+        public ActionResult Create([Bind(Include = "PokemonId,DefaultImage,Name,Height,Weight")] Pokedata pokedata)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +79,7 @@ namespace Pokemon.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,base_experience,height,is_default,location_area_encounters,name,order,weight")] Pokedata pokedata)
+        public ActionResult Edit([Bind(Include = "PokemonId,DefaultImage,Name,Height,Weight")] Pokedata pokedata)
         {
             if (ModelState.IsValid)
             {

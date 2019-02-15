@@ -20,14 +20,6 @@ namespace Pokemon.DAL
 
             PokeList.AllPokemon.ForEach(s =>
             {
-                s.Moves.ToList().ForEach(m =>
-                {
-                    context.Moves.Add(m);
-                });
-                s.Abilities.ToList().ForEach(m =>
-                {
-                    context.Abilities.Add(m);
-                });
                 context.Pokedatas.Add(s);
             });
         }

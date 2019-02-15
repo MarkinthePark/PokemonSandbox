@@ -51,12 +51,8 @@ namespace Pokemon.DAL.Services
         {
             var APIResult = new API_Pokedata { };
             var PokeList = new List<Pokedata> { };
-
-            var poke = new Pokedata { };
-            var move = new Move { };
-            var abil = new Ability { };
             
-            var data = APIUrl.GetStringAsync("?limit=5").Result;
+            var data = APIUrl.GetStringAsync("?limit=" + GetMax()).Result;
             JsonConvert.DeserializeObject<PokemonResult>(data).results.ForEach(s => {
 
                 // URL Structure https://pokeapi.co/api/v2/pokemon/ {pokeIndex}
@@ -64,6 +60,8 @@ namespace Pokemon.DAL.Services
                 APIResult  = JsonConvert.DeserializeObject<API_Pokedata>(APIUrl.GetStringAsync(pokeIndex.ToString()).Result);
 
                 // Unconvential and potentially incorrect way of aggregating data from business object to EF model.
+                var poke = new Pokedata { };
+
                 poke.PokemonId = APIResult.id;
                 poke.Name = APIResult.name;
                 poke.DefaultImage = APIResult.sprites.front_default;
@@ -72,6 +70,7 @@ namespace Pokemon.DAL.Services
 
                 APIResult.moves.ForEach(m =>
                 {
+                    var move = new Move { };
                     move.Name = m.move.name;
                     move.MoveId = GetURLIndex(m.move.url);
                     poke.Moves.Add(move);
@@ -79,6 +78,7 @@ namespace Pokemon.DAL.Services
 
                 APIResult.abilities.ForEach(m =>
                 {
+                    var abil = new Ability { };
                     abil.Name = m.ability.name;
                     abil.AbilityId = GetURLIndex(m.ability.url);
                     poke.Abilities.Add(abil);

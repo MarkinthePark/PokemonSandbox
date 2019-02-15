@@ -1,5 +1,50 @@
-﻿@model Pokemon.Models.Moves
+﻿@model Pokemon.Models.Pokedata
 
 @{
     ViewBag.Title = "Details";
 }
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pokedata</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DefaultImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DefaultImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PokemonId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
