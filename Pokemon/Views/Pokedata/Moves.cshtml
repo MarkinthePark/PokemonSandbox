@@ -1,0 +1,29 @@
+﻿@model Pokemon.Models.Move
+
+@{
+    ViewBag.Title = "Moves";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pokedata</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayFor(model => model.Name)
+        </dt>
+
+        @foreach (var pokemon in Model.Pokemons)
+        {
+            <dd>
+                @Html.DisplayFor(modelPokemon => pokemon.Name)
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MoveId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

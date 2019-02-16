@@ -42,6 +42,17 @@
             @Html.DisplayFor(model => model.Weight)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Moves)
+        </dt>
+
+        @foreach (var move in Model.Moves)
+        {
+            <dd>
+                @Html.DisplayFor(modelMove => move.Name)
+            </dd>
+        }
+
     </dl>
 </div>
 <p>

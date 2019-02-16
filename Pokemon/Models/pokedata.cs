@@ -9,9 +9,8 @@ namespace Pokemon.Models
 {
 
     // Doing it right. Testing the results of Many-to-Many contexts.
-
     
-
+        
     public class Pokedata
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -38,7 +37,11 @@ namespace Pokemon.Models
         {
             this.Pokemons = new HashSet<Pokedata>();
         }
-        
+
+        // MoveId currently being overwritten by modelBuilder.
+        // Possibly add Generic Id as PK to prevent duplication.
+        [Key]
+        public int Id { get; set; }
         public int MoveId { get; set; }
         public string Name { get; set; }
 
@@ -51,7 +54,11 @@ namespace Pokemon.Models
         {
             this.Pokemons = new HashSet<Pokedata>();
         }
-        
+
+        // AbilityId currently being overwritten by modelBuilder.
+        // Possibly add Generic Id as PK to prevent duplication.
+        [Key]
+        public int Id { get; set; }
         public int AbilityId { get; set; }
         public string Name { get; set; }
 

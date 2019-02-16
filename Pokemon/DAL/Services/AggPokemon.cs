@@ -14,11 +14,8 @@ namespace Pokemon.DAL.Services
 {
     public class AggPokemon
     {
-        // Look into: http://docs.automapper.org/en/stable/index.html
-        // Is this service doing to much?
-
-        private static readonly HttpClient APIUrl = new HttpClient()
-        {
+        private static readonly HttpClient APIUrl = new HttpClient()  // Currently only opening a single port with HttpClient. Very slow.
+        {                                                             // Look into Uri management: Multi-thread external API GET requests.
             BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/")
         };
 
@@ -33,12 +30,12 @@ namespace Pokemon.DAL.Services
                 AllPokemon = value;
             }
         }
-
+        
         // Getting Max number of results
         public static int GetMax()
         {
             var data = APIUrl.GetStringAsync("").Result;
-            return JsonConvert.DeserializeObject<PokemonResult>(data).count;
+            return JsonConvert.DeserializeObject<PokemonResult>(data).count;           // Add GetMax() and GetURLIndex() to Utility doc within same namespace.
         }
 
         public static int GetURLIndex (string url)
@@ -52,7 +49,7 @@ namespace Pokemon.DAL.Services
             var APIResult = new API_Pokedata { };
             var PokeList = new List<Pokedata> { };
             
-            var data = APIUrl.GetStringAsync("?limit=" + GetMax()).Result;
+            var data = APIUrl.GetStringAsync("?limit=" + GetMax()).Result;  // Determine number of GET requests to API. Use GetMax() for complete query.
             JsonConvert.DeserializeObject<PokemonResult>(data).results.ForEach(s => {
 
                 // URL Structure https://pokeapi.co/api/v2/pokemon/ {pokeIndex}
@@ -60,6 +57,7 @@ namespace Pokemon.DAL.Services
                 APIResult  = JsonConvert.DeserializeObject<API_Pokedata>(APIUrl.GetStringAsync(pokeIndex.ToString()).Result);
 
                 // Unconvential and potentially incorrect way of aggregating data from business object to EF model.
+                // Look into: http://docs.automapper.org/en/stable/index.html
                 var poke = new Pokedata { };
 
                 poke.PokemonId = APIResult.id;

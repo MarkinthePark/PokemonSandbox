@@ -266,6 +266,7 @@
     <Content Include="Views\Pokedata\Details.cshtml" />
     <Content Include="Views\Pokedata\Edit.cshtml" />
     <Content Include="Views\Pokedata\Index.cshtml" />
+    <Content Include="Views\Pokedata\Moves.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

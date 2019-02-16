@@ -21,6 +21,22 @@ namespace Pokemon.Controllers
             return View(db.Pokedatas.ToList());
         }
 
+        // GET: Pokedata/Moves/5
+        public ActionResult Moves(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Move move = db.Moves.Find(id);
+            if (move == null)
+            {
+                return HttpNotFound();
+            }
+            return View(move);
+
+        }
+
         // GET: Pokedata/Details/5
         public ActionResult Details(int? id)
         {
