@@ -9,6 +9,7 @@ namespace Pokemon.Models
 {
 
     // Doing it right. Testing the results of Many-to-Many contexts.
+    // Using to seed DB. Technically part of the business layer.
     
         
     public class Pokedata
@@ -35,33 +36,29 @@ namespace Pokemon.Models
     {
         public Move()
         {
-            this.Pokemons = new HashSet<Pokedata>();
+            this.Pokedatas = new HashSet<Pokedata>();
         }
-
-        // MoveId currently being overwritten by modelBuilder.
-        // Possibly add Generic Id as PK to prevent duplication.
-        [Key]
-        public int Id { get; set; }
+        
+        // Possibly add Generic Id as PK to prevent duplication. -Attempted, created many to one table with only one Pokedata per ICollection
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MoveId { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Pokedata> Pokemons { get; set; }
+        public virtual ICollection<Pokedata> Pokedatas { get; set; }
     }
 
     public class Ability
     {
         public Ability()
         {
-            this.Pokemons = new HashSet<Pokedata>();
+            this.Pokedatas = new HashSet<Pokedata>();
         }
 
         // AbilityId currently being overwritten by modelBuilder.
-        // Possibly add Generic Id as PK to prevent duplication.
         [Key]
-        public int Id { get; set; }
         public int AbilityId { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Pokedata> Pokemons { get; set; }
+        public virtual ICollection<Pokedata> Pokedatas { get; set; }
     }
 }

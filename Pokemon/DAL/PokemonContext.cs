@@ -10,7 +10,7 @@ namespace Pokemon.DAL
         public PokemonContext() : base("PokemonContext")
         {
         }
-        
+
         public DbSet<Pokedata> Pokedatas { get; set; }
         public DbSet<Move> Moves { get; set; }
         public DbSet<Ability> Abilities { get; set; }
@@ -18,6 +18,12 @@ namespace Pokemon.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<Pokedata>()
+                .HasMany(p => p.Moves).WithMany(m => m.Pokedatas)
+                .Map(t => t.MapLeftKey("PokemonID")
+                    .MapRightKey("MoveID")
+                    .ToTable("MovePokedata"));
         }
     }
 }

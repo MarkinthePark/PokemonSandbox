@@ -14,10 +14,10 @@
             @Html.DisplayFor(model => model.Name)
         </dt>
 
-        @foreach (var pokemon in Model.Pokemons)
+        @foreach (var Pokedatas in Model.Pokedatas)
         {
             <dd>
-                @Html.DisplayFor(modelPokemon => pokemon.Name)
+                @Html.DisplayFor(ModelPokedatas => Pokedatas.Name)
             </dd>
         }
 
