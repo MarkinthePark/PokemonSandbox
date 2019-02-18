@@ -42,6 +42,7 @@ namespace Pokemon.Models
         // Possibly add Generic Id as PK to prevent duplication. -Attempted, created many to one table with only one Pokedata per ICollection
         [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MoveId { get; set; }
+        [Required]
         public string Name { get; set; }
 
         public virtual ICollection<Pokedata> Pokedatas { get; set; }

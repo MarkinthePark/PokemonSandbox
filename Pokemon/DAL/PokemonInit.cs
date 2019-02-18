@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using Pokemon.Models;
 using Pokemon.DAL.Services;
 
+using System.Data.Entity.Migrations; //Test
+
 namespace Pokemon.DAL
 {
     public class PokemonInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<PokemonContext>

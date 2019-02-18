@@ -36,7 +36,7 @@ namespace Pokemon.DAL.Services
             var APIResult = new API_Pokedata { };
             var PokeList = new List<Pokedata> { };
             
-            var data = APIUrl.GetStringAsync("?limit=" + Utility.GetMax(APIUrl)).Result;  // Determine number of GET requests to API. Use GetMax() for complete query.
+            var data = APIUrl.GetStringAsync("?limit=5").Result;  // Determine number of GET requests to API. Use Utility.GetMax() for complete query.
             JsonConvert.DeserializeObject<PokemonResult>(data).results.ForEach(s => {
 
                 // URL Structure https://pokeapi.co/api/v2/pokemon/ {pokeIndex}
@@ -57,7 +57,7 @@ namespace Pokemon.DAL.Services
                 APIResult.moves.ForEach(m =>
                 {
                     var move = new Move { };
-                    move.Name = m.move.name;
+                    //move.Name = m.move.name; --Testing results of making this required
                     move.MoveId = Utility.GetURLIndex(m.move.url);
                     poke.Moves.Add(move);
                 });
