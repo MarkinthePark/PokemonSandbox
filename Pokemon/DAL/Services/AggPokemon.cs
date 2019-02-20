@@ -33,20 +33,18 @@ namespace Pokemon.DAL.Services
 
         public static List<Pokedata> GetPokemon()
         {
-            var APIResult = new API_Pokedata { };
-            var PokeList = new List<Pokedata> { };
+            API_Pokedata APIResult = new API_Pokedata { };
+            List<Pokedata> PokeList = new List<Pokedata> { };
             
-            var data = APIUrl.GetStringAsync("?limit=5").Result;  // Determine number of GET requests to API. Use Utility.GetMax() for complete query.
+            string data = APIUrl.GetStringAsync("?limit==5").Result;        // Determine number of GET requests to API. Use Utility.GetMax(APIUrl) for complete query.
             JsonConvert.DeserializeObject<PokemonResult>(data).results.ForEach(s => {
 
                 // URL Structure https://pokeapi.co/api/v2/pokemon/ {pokeIndex}
-                var pokeIndex = Utility.GetURLIndex(s.url);
+                int pokeIndex = Utility.GetURLIndex(s.url);
                 APIResult  = JsonConvert.DeserializeObject<API_Pokedata>(APIUrl.GetStringAsync(pokeIndex.ToString()).Result);
-
-                // Unconvential and potentially incorrect way of aggregating data from business object to EF model.
-                // Look into: http://docs.automapper.org/en/stable/index.html
-                var poke = new Pokedata { };
-
+                
+                Pokedata poke = new Pokedata { };       // Unconvential and potentially incorrect way of aggregating data from business object to EF model.
+                                                        // Look into: http://docs.automapper.org/en/stable/index.html?
                 poke.PokemonId = APIResult.id;
                 poke.Name = APIResult.name;
                 poke.DefaultImage = APIResult.sprites.front_default;
@@ -56,23 +54,25 @@ namespace Pokemon.DAL.Services
 
                 APIResult.moves.ForEach(m =>
                 {
-                    var move = new Move { };
-                    //move.Name = m.move.name; --Testing results of making this required
+                    Move move = new Move { };
+                    move.Name = m.move.name;
                     move.MoveId = Utility.GetURLIndex(m.move.url);
+                    move.Pokedatas.Add(poke);
                     poke.Moves.Add(move);
+                    
                 });
 
-                APIResult.abilities.ForEach(m =>
+                APIResult.abilities.ForEach(a =>
                 {
-                    var abil = new Ability { };
-                    abil.Name = m.ability.name;
-                    abil.AbilityId = Utility.GetURLIndex(m.ability.url);
+                    Ability abil = new Ability { };
+                    abil.Name = a.ability.name;
+                    abil.AbilityId = Utility.GetURLIndex(a.ability.url);
                     poke.Abilities.Add(abil);
                 });
 
                 PokeList.Add(poke);
             });
-            
+
             return PokeList;
         }
     }

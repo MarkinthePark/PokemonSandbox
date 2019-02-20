@@ -33,12 +33,12 @@ namespace Pokemon.DAL.Services
 
         public static List<Move> GetMoves()
         {
-            var MoveList = new List<Move> { };
+            List<Move> MoveList = new List<Move> { };
 
-            var data = APIUrl.GetStringAsync("?limit=" + Utility.GetMax(APIUrl)).Result;
+            string data = APIUrl.GetStringAsync("?limit=" + Utility.GetMax(APIUrl)).Result;
             JsonConvert.DeserializeObject<PokemonResult>(data).results.ForEach(s =>
             {
-                var move = new Move { };
+                Move move = new Move { };
                 move.Name = s.name;
                 move.MoveId = Utility.GetURLIndex(s.url);
                 move.Pokedatas = new List<Pokedata> { };

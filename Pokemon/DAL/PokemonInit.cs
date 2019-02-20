@@ -18,19 +18,41 @@ namespace Pokemon.DAL
     {
         protected override void Seed(PokemonContext context)
         {
-            var MoveList = new AggMoves();
+            /*
+            AggMoves MoveList = new AggMoves();
+            
             MoveList.AllMoves.ForEach(s =>
             {
                 context.Moves.Add(s);
             });
             context.SaveChanges();
+            */
 
-            var PokeList = new AggPokemon();
-            PokeList.AllPokemon.ForEach(s =>
+            AggPokemon PokeList = new AggPokemon();
+
+
+            PokeList.AllPokemon.ForEach(p =>
             {
-                context.Pokedatas.Add(s);
+                context.Moves.AddOrUpdate(
+                    m => m.Name,
+                    p.Moves.ToArray()
+                );
+                
+                context.SaveChanges();
+
             });
-            context.SaveChanges();
+
+            /*
+            MoveList.AllMoves.ForEach(m =>
+            {
+                context.Pokedatas.AddOrUpdate(
+                    p => p.Name,
+                    m.Pokedatas.ToArray()
+                );
+
+                context.SaveChanges();
+            });
+            */
         }
     }
 }
