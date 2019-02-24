@@ -10,7 +10,8 @@ using Newtonsoft.Json;
 using Pokemon.Models;
 using Pokemon.DAL.Services;
 
-using System.Data.Entity.Migrations; //Test
+using System.Data;
+using System.Data.Entity.Migrations;
 
 namespace Pokemon.DAL
 {
@@ -18,41 +19,38 @@ namespace Pokemon.DAL
     {
         protected override void Seed(PokemonContext context)
         {
-            /*
+
             AggMoves MoveList = new AggMoves();
-            
-            MoveList.AllMoves.ForEach(s =>
-            {
-                context.Moves.Add(s);
-            });
+            context.Moves.AddRange(MoveList.AllMoves);
             context.SaveChanges();
-            */
 
             AggPokemon PokeList = new AggPokemon();
 
+            // ***************************************************************
+            // This takes roughly 20 minutes to complile the complete database
+            // with Moves being the only many to many table.  Make faster!
+            // ***************************************************************
 
             PokeList.AllPokemon.ForEach(p =>
             {
-                context.Moves.AddOrUpdate(
-                    m => m.Name,
-                    p.Moves.ToArray()
-                );
-                
-                context.SaveChanges();
-
-            });
-
-            /*
-            MoveList.AllMoves.ForEach(m =>
-            {
-                context.Pokedatas.AddOrUpdate(
-                    p => p.Name,
-                    m.Pokedatas.ToArray()
-                );
+                List<Move> PokeMoves = p.Moves.ToList();
+                p.Moves.Clear();
+                context.Pokedatas.Add(p);
 
                 context.SaveChanges();
+
+                var existingPokemon = context.Pokedatas.Include("Moves")
+                    .Where(ep => ep.Name == p.Name).FirstOrDefault<Pokedata>();
+
+                foreach (Move m in PokeMoves)
+                {
+                    // Look into bulk find method to match class object with existing entities
+
+                    var existingMove = context.Moves.Find(m.MoveId);
+                    existingPokemon.Moves.Add(existingMove);
+                }
+                context.SaveChanges();
             });
-            */
         }
     }
 }
