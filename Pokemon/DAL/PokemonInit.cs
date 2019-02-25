@@ -19,7 +19,6 @@ namespace Pokemon.DAL
     {
         protected override void Seed(PokemonContext context)
         {
-
             AggMoves MoveList = new AggMoves();
             context.Moves.AddRange(MoveList.AllMoves);
             context.SaveChanges();
@@ -29,6 +28,10 @@ namespace Pokemon.DAL
             // ***************************************************************
             // This takes roughly 20 minutes to complile the complete database
             // with Moves being the only many to many table.  Make faster!
+            //
+            // Now it uses 2GB of data to init... greatttttttttt.
+            // Handle speed with ASync?
+            // Find source of memory leak. Likely JObject cleanup.
             // ***************************************************************
 
             PokeList.AllPokemon.ForEach(p =>

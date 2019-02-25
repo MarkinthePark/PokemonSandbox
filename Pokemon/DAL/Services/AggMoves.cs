@@ -34,30 +34,15 @@ namespace Pokemon.DAL.Services
 
         public static List<Move> GetMoves()
         {
-            IList<JObject> MoveList = Utility.GetResultObjects(APIUrl);
+            JArray MoveList = Utility.GetResultObjects(APIUrl);
 
-            // Use Linq to assign MoveList JObjects to _net.Pokedata objects
-
-            /*
-             * Changing to fully utilize Newtonsoft JObject
-             * Removing redundant API_<Class Objects>
-             * 
-             * 
-
-            List<Move> MoveList = new List<Move> { };
-
-            string data = APIUrl.GetStringAsync("?limit=" + Utility.GetMax(APIUrl)).Result;
-            JsonConvert.DeserializeObject<PokemonResult>(data).results.ForEach(s =>
+            IList<Move> Moves = MoveList.Select(m => new Move
             {
-                Move move = new Move { };
-                move.Name = s.name;
-                move.MoveId = Utility.GetURLIndex(s.url);
-                move.Pokedatas = new List<Pokedata> { };
-                MoveList.Add(move);
-            });
-            */
+                MoveId = (int)m["id"],
+                Name = (string)m["name"]
+            }).ToList();
 
-            return MoveList;
+            return Moves.ToList();
         }
     }
 }

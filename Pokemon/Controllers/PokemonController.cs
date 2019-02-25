@@ -24,7 +24,7 @@ namespace Pokemon.Controllers
 
 
         // GET api/values
-        public async Task<List<Result>> Get()
+        public async Task<List<NamedResource>> Get()
         {
             var data = await Client.GetStringAsync("?limit=964");
             var results = JsonConvert.DeserializeObject<PokemonResult>(data).results;

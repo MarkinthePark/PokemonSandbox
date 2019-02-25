@@ -17,13 +17,15 @@ namespace Pokemon.DAL.Services
          * The GetObjectResults() returns a complete query of every item in the
          * BaseUri. Making this code as recyleable as possible.
          * 
-         * Wondering how secure returning a JObject is. Ask Joe to break it.
+         * Wondering how secure returning a JArray is.
          * 
-         * Every resource Uri is as follows: https://pokeapi.co/api/v2/{resource}/{index}
+         * Every resource Uri is: https://pokeapi.co/api/v2/ {resource} / {index}
+         * Should attempt to validate this before release!
          */
-        public static IList<JObject> GetResultObjects(HttpClient APIUrl)
+        public static JArray GetResultObjects(HttpClient APIUrl)
         {
-            IList <JObject> resultObjects = new List<JObject>();
+            //IList<JObject> resultObjects = new List<JObject>();
+            JArray resultObjects = new JArray();
             foreach (JToken result in ResultList(APIUrl))
             {
                 NamedResource resourseItem = result.ToObject<NamedResource>();  //Extra steps? Use JToken?
@@ -67,6 +69,14 @@ namespace Pokemon.DAL.Services
             char[] urlDelims = new char[] { '/' };
             string index = url.Split(urlDelims, StringSplitOptions.RemoveEmptyEntries).Last();
             return index;
+        }
+
+        public static int URLIndex(string url, bool toInt)
+        {
+            // Get {index} from Uri
+            char[] urlDelims = new char[] { '/' };
+            string index = url.Split(urlDelims, StringSplitOptions.RemoveEmptyEntries).Last();
+            return Convert.ToInt32(index);
         }
     }
 }
