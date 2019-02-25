@@ -32,7 +32,7 @@ namespace Pokemon.DAL.Services
             }
         }
 
-        public static List<Move> GetMoves()
+        private static List<Move> GetMoves()
         {
             JArray MoveList = Utility.GetResultObjects(APIUrl);
 

@@ -46,7 +46,7 @@ namespace Pokemon.DAL
                     .Where(ep => ep.Name == p.Name).FirstOrDefault<Pokedata>();
 
 
-                // Make a function out of this.
+                // Make a function out of this. Also... this is very slow.
                 foreach (Move m in PokeMoves)
                 {
                     // Look into bulk find method to match class object with existing entities

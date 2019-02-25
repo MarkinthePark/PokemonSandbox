@@ -21,6 +21,8 @@ namespace Pokemon.DAL.Services
          * 
          * Every resource Uri is: https://pokeapi.co/api/v2/ {resource} / {index}
          * Should attempt to validate this before release!
+         * 
+         * Change GetResultObjects into async function.
          */
         public static JArray GetResultObjects(HttpClient APIUrl)
         {
@@ -58,7 +60,6 @@ namespace Pokemon.DAL.Services
             int count = JObject.Parse(partialResult)["count"].ToObject<int>();
             return count;
         }
-
 
         /*
          * Making URLIndex public for use in PK validation in TDD

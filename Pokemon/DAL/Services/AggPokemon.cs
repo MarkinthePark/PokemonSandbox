@@ -32,7 +32,7 @@ namespace Pokemon.DAL.Services
             }
         }
 
-        public static List<Pokedata> GetPokemon()
+        private static List<Pokedata> GetPokemon()
         {
             JArray pokeList = Utility.GetResultObjects(APIUrl);
 
