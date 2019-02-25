@@ -42,6 +42,8 @@ namespace Pokemon.DAL
                 var existingPokemon = context.Pokedatas.Include("Moves")
                     .Where(ep => ep.Name == p.Name).FirstOrDefault<Pokedata>();
 
+
+                // Make a function out of this.
                 foreach (Move m in PokeMoves)
                 {
                     // Look into bulk find method to match class object with existing entities

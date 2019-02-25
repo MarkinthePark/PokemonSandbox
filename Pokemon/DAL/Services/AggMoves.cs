@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Pokemon.Models;
 using Pokemon.Models.Business;
 
@@ -33,6 +34,16 @@ namespace Pokemon.DAL.Services
 
         public static List<Move> GetMoves()
         {
+            IList<JObject> MoveList = Utility.GetResultObjects(APIUrl);
+
+            // Use Linq to assign MoveList JObjects to _net.Pokedata objects
+
+            /*
+             * Changing to fully utilize Newtonsoft JObject
+             * Removing redundant API_<Class Objects>
+             * 
+             * 
+
             List<Move> MoveList = new List<Move> { };
 
             string data = APIUrl.GetStringAsync("?limit=" + Utility.GetMax(APIUrl)).Result;
@@ -44,6 +55,7 @@ namespace Pokemon.DAL.Services
                 move.Pokedatas = new List<Pokedata> { };
                 MoveList.Add(move);
             });
+            */
 
             return MoveList;
         }

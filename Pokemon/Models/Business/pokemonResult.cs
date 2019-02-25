@@ -12,10 +12,10 @@ namespace Pokemon.Models.Business
         public int count { get; set; }
         public string next { get; set; }
         public string previous { get; set; }
-        public List<Result> results { get; set; }
+        public List<NamedResource> results { get; set; }
     }
 
-    public class Result
+    public class NamedResource
     {
         public string name { get; set; }
         public string url { get; set; }

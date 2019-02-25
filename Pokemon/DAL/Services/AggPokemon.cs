@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Pokemon.Models;
 using Pokemon.Models.Business;
 
@@ -33,6 +34,15 @@ namespace Pokemon.DAL.Services
 
         public static List<Pokedata> GetPokemon()
         {
+            IList<JObject> PokeList = Utility.GetResultObjects(APIUrl);
+
+            // Use Linq to assign PokeList JObjects to _net.Pokedata objects
+
+            /*
+             * Changing to fully utilize Newtonsoft JObject
+             * Removing redundant API_<Class Objects>
+             * 
+             * 
             API_Pokedata APIResult = new API_Pokedata { };
             List<Pokedata> PokeList = new List<Pokedata> { };
             
@@ -73,6 +83,7 @@ namespace Pokemon.DAL.Services
 
                 PokeList.Add(poke);
             });
+            */
 
             return PokeList;
         }
