@@ -34,8 +34,25 @@ namespace Pokemon.DAL.Services
 
         private static List<Pokedata> GetPokemon()
         {
-            JArray pokeList = Utility.GetResultObjects(APIUrl);
+            List<Pokedata> pokeList = new List<Pokedata>();
 
+            List<Task<string>> tasks = Utility.GetResultObjects(APIUrl);
+            foreach (var t in tasks)
+                t.ContinueWith(completed => {
+                    switch (completed.Status)
+                    {
+                        case TaskStatus.RanToCompletion:
+                            pokeList.Add(CreatePokemon(JToken.Parse(completed.Result)));
+                            break;
+                        case TaskStatus.Faulted: break;
+                    }
+                }, TaskScheduler.Default);
+
+            Task.WaitAll(tasks.ToArray()); // Works... kinda. Final task completes, but requires additional processing.
+
+            return pokeList;
+
+            /*
             IList<Pokedata> pokedatas = pokeList.Select(p => new Pokedata
             {
                 PokemonId = (int)p["id"],
@@ -49,8 +66,29 @@ namespace Pokemon.DAL.Services
                 }).ToList(),
                 Abilities = null
             }).ToList();
-            
+
             return pokedatas.ToList();
+            */
+        }
+
+        private static Pokedata CreatePokemon(JToken p)
+        {
+            Pokedata pokemon = new Pokedata
+            {
+                PokemonId = (int)p["id"],
+                DefaultImage = (string)p["sprites"]["front_default"],
+                Name = (string)p["name"],
+                Height = (int)p["height"],
+                Weight = (int)p["weight"],
+                Moves = new JArray(p["moves"].Children()).Select(m => new Move
+                {
+                    MoveId = Utility.URLIndex((string)m["move"]["url"], true),
+                    Name = (string)m["move"]["name"]
+                }).ToList(),
+                Abilities = null
+            };
+
+            return pokemon;
         }
     }
 }

@@ -24,29 +24,28 @@ namespace Pokemon.DAL.Services
          * 
          * Change GetResultObjects into async function.
          */
-        public static JArray GetResultObjects(HttpClient APIUrl)
+        public static List<Task<string>> GetResultObjects(HttpClient APIUrl)
         {
-            //IList<JObject> resultObjects = new List<JObject>();
-            JArray resultObjects = new JArray();
-            foreach (JToken result in ResultList(APIUrl))
+            List<Task<string>> resultObjects = new List<Task<string>>();
+            foreach (NamedResource result in ResultList(APIUrl))
             {
-                NamedResource resourseItem = result.ToObject<NamedResource>();  //Extra steps? Use JToken?
-                string id = URLIndex(resourseItem.url);  // Setting to easily append to BaseUri
+                string id = URLIndex(result.url);  // Setting to easily append to BaseUri
 
-                JObject resultItem = JObject.Parse(APIUrl.GetStringAsync(id).Result);
+                Task<string> resultItem = APIUrl.GetStringAsync(id);
                 resultObjects.Add(resultItem);
-            }
+            };
+
 
             return resultObjects;
         }
 
-        private static IList<JToken> ResultList(HttpClient APIUrl)
+        private static List<NamedResource> ResultList(HttpClient APIUrl)
         {
             int maxCount = Count(APIUrl);
 
             // Using "count" property in a URL query to get complete list
             string maxResults = APIUrl.GetStringAsync("?limit=" + maxCount).Result;
-            IList<JToken> results = JObject.Parse(maxResults)["results"].Children().ToList();
+            List<NamedResource> results = JObject.Parse(maxResults)["results"].ToObject<List<NamedResource>>();
             return results;
         }
 

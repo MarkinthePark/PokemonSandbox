@@ -34,6 +34,25 @@ namespace Pokemon.DAL.Services
 
         private static List<Move> GetMoves()
         {
+            List<Move> moveList = new List<Move>();
+
+            List<Task<string>> tasks = Utility.GetResultObjects(APIUrl);
+            foreach (var t in tasks)
+                t.ContinueWith(completed => {
+                    switch (completed.Status)
+                    {
+                        case TaskStatus.RanToCompletion:
+                            moveList.Add(CreateMove(JToken.Parse(completed.Result)));
+                            break;
+                        case TaskStatus.Faulted: break;
+                    }
+                }, TaskScheduler.Default);
+
+            Task.WaitAll(tasks.ToArray());
+
+            return moveList;
+
+            /*
             JArray MoveList = Utility.GetResultObjects(APIUrl);
 
             IList<Move> Moves = MoveList.Select(m => new Move
@@ -43,6 +62,18 @@ namespace Pokemon.DAL.Services
             }).ToList();
 
             return Moves.ToList();
+            */
+        }
+
+        private static Move CreateMove(JToken m)
+        {
+            Move move = new Move
+            {
+                MoveId = (int)m["id"],
+                Name = (string)m["name"]
+            };
+
+            return move;
         }
     }
 }
