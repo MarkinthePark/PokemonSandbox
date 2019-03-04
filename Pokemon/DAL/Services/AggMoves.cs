@@ -20,7 +20,7 @@ namespace Pokemon.DAL.Services
             BaseAddress = new Uri("https://pokeapi.co/api/v2/move/")
         };
 
-        public List<Move> AllMoves
+        public IEnumerable<Task<Move>> AllMoves
         {
             get
             {
@@ -32,36 +32,31 @@ namespace Pokemon.DAL.Services
             }
         }
 
-        private static List<Move> GetMoves()
+        private static IEnumerable<Task<Move>> GetMoves()
         {
-            List<Move> moveList = new List<Move>();
-
-            IEnumerable<Task<string>> tasks = Utility.GetResultObjects(APIUrl);
-            foreach (var t in tasks)
-                t.ContinueWith(completed => {
-                    switch (completed.Status)
-                    {
-                        case TaskStatus.RanToCompletion:
-                            moveList.Add(CreateMove(JToken.Parse(completed.Result)));
-                            break;
-                        case TaskStatus.Faulted: break;
-                    }
-                }, TaskScheduler.Default);
-
-            Task.WaitAll(tasks.ToArray());
+            IEnumerable<Task<Move>> moveList =
+                from move in Utility.GetResultObjects(APIUrl)
+                select CreateMove(move);
 
             return moveList;
         }
 
-        private static Move CreateMove(JToken m)
+        private static async Task<Move> CreateMove(Task<string> fromUrl)
         {
-            Move move = new Move
-            {
-                MoveId = (int)m["id"],
-                Name = (string)m["name"]
-            };
 
-            return move;
+            Move moveTask = await fromUrl.ContinueWith(s =>
+            {
+                JToken m = JToken.Parse(s.Result);
+                Move move = new Move
+                {
+                    MoveId = (int)m["id"],
+                    Name = (string)m["name"]
+                };
+
+                return move;
+            }, TaskScheduler.Default);
+
+            return moveTask;
         }
     }
 }

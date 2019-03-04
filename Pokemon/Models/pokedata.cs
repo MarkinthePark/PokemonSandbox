@@ -7,11 +7,6 @@ using System.Web;
 
 namespace Pokemon.Models
 {
-
-    // Doing it right. Testing the results of Many-to-Many contexts.
-    // Using to seed DB. Technically part of the business layer.
-    
-        
     public class Pokedata
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -32,6 +27,7 @@ namespace Pokemon.Models
         public virtual ICollection<Ability> Abilities { get; set; }
     }
 
+    // Fill out move attributes.
     public class Move
     {
         public Move()
@@ -46,6 +42,7 @@ namespace Pokemon.Models
         public virtual ICollection<Pokedata> Pokedatas { get; set; }
     }
 
+    // Fill out ability attributes.
     public class Ability
     {
         public Ability()

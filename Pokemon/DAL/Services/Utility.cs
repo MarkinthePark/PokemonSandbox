@@ -27,20 +27,8 @@ namespace Pokemon.DAL.Services
         public static IEnumerable<Task<string>> GetResultObjects(HttpClient APIUrl)
         {
             IEnumerable<Task<string>> resultObjects =
-                from resource in ResultList(APIUrl) select
-                APIUrl.GetStringAsync(URLIndex(resource.url));
-
-            /*
-            List<Task<string>> resultObjects = new List<Task<string>>();
-            foreach (NamedResource result in ResultList(APIUrl))
-            {
-                string id = URLIndex(result.url);  // Setting to easily append to BaseUri
-
-                Task<string> resultItem = APIUrl.GetStringAsync(id);
-                resultObjects.Add(resultItem);
-            };
-            */
-
+                from resource in ResultList(APIUrl)
+                select APIUrl.GetStringAsync(URLIndex(resource.url));
 
             return resultObjects;  // Changed to IEnumerable for greater performance.
         }

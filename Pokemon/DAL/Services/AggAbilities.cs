@@ -34,29 +34,9 @@ namespace Pokemon.DAL.Services
 
         private static IEnumerable<Task<Ability>> GetAbilities()
         {
-            // List<Task<Ability>> moveList = new List<Task<Ability>>();
-
             IEnumerable<Task<Ability>> moveList =
-                from abil in Utility.GetResultObjects(APIUrl)
-                select CreateAbility(abil);
-
-
-
-            /*
-            IEnumerable<Task<string>> tasks = Utility.GetResultObjects(APIUrl);
-            foreach (var t in tasks)
-                t.ContinueWith(completed => {
-                    switch (completed.Status)
-                    {
-                        case TaskStatus.RanToCompletion:
-                            moveList.Add(CreateAbility(JToken.Parse(completed.Result)));
-                            break;
-                        case TaskStatus.Faulted: break;
-                    }
-                }, TaskScheduler.Default);
-
-            Task.WaitAll(tasks.ToArray());
-            */
+                from ability in Utility.GetResultObjects(APIUrl)
+                select CreateAbility(ability);
 
             return moveList;
         }
@@ -64,19 +44,19 @@ namespace Pokemon.DAL.Services
         private static async Task<Ability> CreateAbility(Task<string> fromUrl)
         {
 
-            Ability ability = await fromUrl.ContinueWith(s =>
+            Ability abilityTask = await fromUrl.ContinueWith(s =>
             {
                 JToken a = JToken.Parse(s.Result);
-                Ability abil = new Ability
+                Ability ability = new Ability
                 {
                     AbilityId = (int)a["id"],
                     Name = (string)a["name"]
                 };
 
-                return abil;
+                return ability;
             }, TaskScheduler.Default);
             
-            return ability;
+            return abilityTask;
         }
     }
 }

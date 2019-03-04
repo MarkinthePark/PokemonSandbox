@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Pokemon.Models.Business
 {
     // *********************************************************************************
-    // TO-DO: Abstract from Pokedata to EF in initializer? Or seperate aggregate service?
+    // Moved away from using this class. Keeping as reference.
     // *********************************************************************************
 
     public class API_Pokedata

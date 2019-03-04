@@ -15,8 +15,8 @@ namespace Pokemon.DAL.Services
 {
     public class AggPokemon
     {
-        private static readonly HttpClient APIUrl = new HttpClient()  // Currently only opening a single port with HttpClient. Very slow.
-        {                                                             // Look into Uri management: Multi-thread external API GET requests.
+        private static readonly HttpClient APIUrl = new HttpClient()
+        {
             BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon/")
         };
 
@@ -48,27 +48,9 @@ namespace Pokemon.DAL.Services
                     }
                 }, TaskScheduler.Default);
 
-            Task.WaitAll(tasks.ToArray()); // Works... kinda. Final task completes, but requires additional processing.
+            Task.WaitAll(tasks.ToArray());
 
             return pokeList;
-
-            /*
-            IList<Pokedata> pokedatas = pokeList.Select(p => new Pokedata
-            {
-                PokemonId = (int)p["id"],
-                DefaultImage = (string)p["sprites"]["front_default"],
-                Name = (string)p["name"],
-                Height = (int)p["height"],
-                Weight = (int)p["weight"],
-                Moves = new JArray(p["moves"].Children()).Select(m => new Move {
-                    MoveId = Utility.URLIndex((string)m["move"]["url"], true),
-                    Name = (string)m["move"]["name"]
-                }).ToList(),
-                Abilities = null
-            }).ToList();
-
-            return pokedatas.ToList();
-            */
         }
 
         private static Pokedata CreatePokemon(JToken p)
