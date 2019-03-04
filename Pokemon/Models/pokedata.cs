@@ -39,7 +39,6 @@ namespace Pokemon.Models
             this.Pokedatas = new HashSet<Pokedata>();
         }
         
-        // Possibly add Generic Id as PK to prevent duplication. -Attempted, created many to one table with only one Pokedata per ICollection
         [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MoveId { get; set; }
         public string Name { get; set; }
@@ -53,9 +52,8 @@ namespace Pokemon.Models
         {
             this.Pokedatas = new HashSet<Pokedata>();
         }
-
-        // AbilityId currently being overwritten by modelBuilder.
-        [Key]
+        
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AbilityId { get; set; }
         public string Name { get; set; }
 

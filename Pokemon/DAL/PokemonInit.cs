@@ -19,6 +19,31 @@ namespace Pokemon.DAL
     {
         protected override void Seed(PokemonContext context)
         {
+            AggAbilities AbilList = new AggAbilities();
+
+            foreach (var a in AbilList.AllAbilities)
+                a.ContinueWith(completed => {
+                    switch (completed.Status)
+                    {
+                        case TaskStatus.RanToCompletion:
+                            PokemonContext ability = new PokemonContext();
+                            ability.Abilities.Add(completed.Result);
+                            ability.SaveChanges();
+                            break;
+                        case TaskStatus.Faulted: break;
+                    }
+                }, TaskScheduler.Default);
+
+            
+
+
+
+
+
+
+
+
+            /*
             AggMoves MoveList = new AggMoves();
             context.Moves.AddRange(MoveList.AllMoves);
             context.SaveChanges();
@@ -27,7 +52,7 @@ namespace Pokemon.DAL
 
             // ***************************************************************
             // This takes roughly 20 minutes to complile the complete database
-            // with Moves being the only many to many table.  Make faster!
+            // with Moves being the only   to many table.  Make faster!
             //
             // Now it uses 2GB of data to init... greatttttttttt.
             // Handle speed with ASync?
@@ -56,6 +81,7 @@ namespace Pokemon.DAL
                 }
                 context.SaveChanges();
             });
+            */
         }
     }
 }

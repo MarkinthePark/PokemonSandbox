@@ -199,6 +199,7 @@
     <Compile Include="Controllers\PokemonController.cs" />
     <Compile Include="DAL\PokemonInit.cs" />
     <Compile Include="DAL\PokemonContext.cs" />
+    <Compile Include="DAL\Services\AggAbilities.cs" />
     <Compile Include="DAL\Services\AggMoves.cs" />
     <Compile Include="DAL\Services\AggPokemon.cs" />
     <Compile Include="DAL\Services\Utility.cs" />

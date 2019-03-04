@@ -24,8 +24,13 @@ namespace Pokemon.DAL.Services
          * 
          * Change GetResultObjects into async function.
          */
-        public static List<Task<string>> GetResultObjects(HttpClient APIUrl)
+        public static IEnumerable<Task<string>> GetResultObjects(HttpClient APIUrl)
         {
+            IEnumerable<Task<string>> resultObjects =
+                from resource in ResultList(APIUrl) select
+                APIUrl.GetStringAsync(URLIndex(resource.url));
+
+            /*
             List<Task<string>> resultObjects = new List<Task<string>>();
             foreach (NamedResource result in ResultList(APIUrl))
             {
@@ -34,18 +39,21 @@ namespace Pokemon.DAL.Services
                 Task<string> resultItem = APIUrl.GetStringAsync(id);
                 resultObjects.Add(resultItem);
             };
+            */
 
 
-            return resultObjects;
+            return resultObjects;  // Changed to IEnumerable for greater performance.
         }
 
-        private static List<NamedResource> ResultList(HttpClient APIUrl)
+        private static IEnumerable<NamedResource> ResultList(HttpClient APIUrl)
         {
             int maxCount = Count(APIUrl);
 
             // Using "count" property in a URL query to get complete list
             string maxResults = APIUrl.GetStringAsync("?limit=" + maxCount).Result;
-            List<NamedResource> results = JObject.Parse(maxResults)["results"].ToObject<List<NamedResource>>();
+            IEnumerable<NamedResource> results = JObject.Parse(maxResults)["results"]
+                .ToObject<IEnumerable<NamedResource>>();
+
             return results;
         }
 

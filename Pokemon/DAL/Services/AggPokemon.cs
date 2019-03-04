@@ -36,7 +36,7 @@ namespace Pokemon.DAL.Services
         {
             List<Pokedata> pokeList = new List<Pokedata>();
 
-            List<Task<string>> tasks = Utility.GetResultObjects(APIUrl);
+            IEnumerable<Task<string>> tasks = Utility.GetResultObjects(APIUrl);
             foreach (var t in tasks)
                 t.ContinueWith(completed => {
                     switch (completed.Status)
