@@ -33,7 +33,7 @@ namespace Pokemon.DAL
              */
 
             AggAbilities AbilList = new AggAbilities();
-            foreach (var a in AbilList.AllAbilities)
+            foreach (Task<Ability> a in AbilList.AllAbilities)
                 a.ContinueWith(completed => {
                     switch (completed.Status)
                     {
@@ -47,7 +47,7 @@ namespace Pokemon.DAL
                 }, TaskScheduler.Default);
 
             AggMoves MoveList = new AggMoves();
-            foreach (var m in MoveList.AllMoves)
+            foreach (Task<Move> m in MoveList.AllMoves)
                 m.ContinueWith(completed => {
                     switch (completed.Status)
                     {
@@ -55,6 +55,22 @@ namespace Pokemon.DAL
                             PokemonContext moveDB = new PokemonContext();
                             moveDB.Moves.Add(completed.Result);
                             moveDB.SaveChanges();
+                            break;
+                        case TaskStatus.Faulted: break;
+                    }
+                }, TaskScheduler.Default);
+
+            var test = context.Moves.Find(1);
+
+            AggPokemon PokeList = new AggPokemon();
+            foreach (Task<Pokedata> p in PokeList.AllPokemon)
+                p.ContinueWith(completed => {
+                    switch (completed.Status)
+                    {
+                        case TaskStatus.RanToCompletion:
+                            PokemonContext pokemonDB = new PokemonContext();
+                            pokemonDB.Pokedatas.Add(completed.Result);
+                            pokemonDB.SaveChanges();
                             break;
                         case TaskStatus.Faulted: break;
                     }
