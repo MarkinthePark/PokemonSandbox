@@ -69,6 +69,17 @@ namespace Pokemon.DAL
                         case TaskStatus.RanToCompletion:
                             PokemonContext pokemonDB = new PokemonContext();
                             Pokedata pokedata = completed.Result;
+
+                            foreach  (Ability a in pokedata.Abilities)
+                            {
+                                pokemonDB.Abilities.Attach(a);
+                            }
+
+                            foreach (Move m in pokedata.Moves)
+                            {
+                                pokemonDB.Moves.Attach(m);
+                            }
+                            
                             pokemonDB.Pokedatas.Add(pokedata);
                             pokemonDB.SaveChanges();
                             /*
