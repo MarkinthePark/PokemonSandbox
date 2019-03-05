@@ -59,24 +59,44 @@ namespace Pokemon.DAL
                         case TaskStatus.Faulted: break;
                     }
                 }, TaskScheduler.Default);
-
-            var test = context.Moves.Find(1);
-
+            
             AggPokemon PokeList = new AggPokemon();
+            TaskScheduler scheduler = new ConcurrentExclusiveSchedulerPair().ExclusiveScheduler;
             foreach (Task<Pokedata> p in PokeList.AllPokemon)
                 p.ContinueWith(completed => {
                     switch (completed.Status)
                     {
                         case TaskStatus.RanToCompletion:
                             PokemonContext pokemonDB = new PokemonContext();
+                            Pokedata pokedata = completed.Result;
+                            pokemonDB.Pokedatas.Add(pokedata);
+                            pokemonDB.SaveChanges();
+                            /*
+                            List<Ability> PokeAbils = pokedata.Abilities.ToList();
+                            pokedata.Abilities.Clear();
+                            List<Move> PokeMoves = pokedata.Moves.ToList();
+                            pokedata.Moves.Clear();
+
                             pokemonDB.Pokedatas.Add(completed.Result);
                             pokemonDB.SaveChanges();
+
+                            Pokedata currentPokemon = pokemonDB.Pokedatas.Find(pokedata.PokemonId);
+
+                            foreach (Ability a in PokeAbils)
+                            {
+                                currentPokemon.Abilities.Add(a);
+                            }
+
+                            foreach (Move m in PokeMoves)
+                            {
+                                currentPokemon.Moves.Add(m);
+                            }
+                            */
+
                             break;
                         case TaskStatus.Faulted: break;
                     }
-                }, TaskScheduler.Default);
-
-            // TODO: Add Pokemon
+                }, scheduler);
         }
     }
 }
